@@ -1,0 +1,25 @@
+tree = {}
+
+n = int(input("Enter number of nodes: "))
+
+for i in range(n):
+    value = int(input("Enter node value: "))
+    tree[value] = [None, None]
+
+print("\nEnter the children of each node.")
+print("Enter -1 if there is no child.")
+
+for value in tree:
+    left = int(input("Enter left child of " + str(value) + ": "))
+    right = int(input("Enter right child of " + str(value) + ": "))
+
+    if left != -1:
+        tree[value][0] = left
+
+    if right != -1:
+        tree[value][1] = right
+
+print("\nBinary Tree:")
+
+for value in tree:
+    print("Node", value, "-> Left:", tree[value][0], "Right:", tree[value][1])
