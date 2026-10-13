@@ -1,0 +1,39 @@
+# FIFO Branch and Bound - 0/1 Knapsack
+
+n = 4
+capacity = 7
+
+weight = [2, 3, 4, 5]
+profit = [40, 50, 65, 70]
+
+# Queue for FIFO
+queue = []
+
+# Each node = (level, profit, weight)
+queue.append((0, 0, 0))
+
+max_profit = 0
+
+while len(queue) > 0:
+
+    # Remove the first node (FIFO)
+    level, current_profit, current_weight = queue.pop(0)
+
+    # If all items are processed
+    if level == n:
+        continue
+
+    # Branch 1: Take the item
+    new_weight = current_weight + weight[level]
+    new_profit = current_profit + profit[level]
+
+    if new_weight <= capacity:
+        if new_profit > max_profit:
+            max_profit = new_profit
+
+        queue.append((level + 1, new_profit, new_weight))
+
+    # Branch 2: Do not take the item
+    queue.append((level + 1, current_profit, current_weight))
+
+print("Maximum Profit =", max_profit)
