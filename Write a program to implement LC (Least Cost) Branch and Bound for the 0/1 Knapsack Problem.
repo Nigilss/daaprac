@@ -1,0 +1,53 @@
+n = 4
+capacity = 7
+
+weight = [2, 3, 4, 5]
+profit = [40, 50, 65, 70]
+
+# Priority list
+queue = []
+
+# (cost, level, profit, weight)
+# Negative profit is used as cost
+queue.append((0, 0, 0, 0))
+
+max_profit = 0
+
+while len(queue) > 0:
+
+    # Find node with least cost
+    min_index = 0
+
+    for i in range(1, len(queue)):
+        if queue[i][0] < queue[min_index][0]:
+            min_index = i
+
+    # Remove least-cost node
+    cost, level, current_profit, current_weight = queue.pop(min_index)
+
+    # If all items are processed
+    if level == n:
+        continue
+
+    # Branch 1: Take the item
+    new_weight = current_weight + weight[level]
+    new_profit = current_profit + profit[level]
+
+    if new_weight <= capacity:
+        if new_profit > max_profit:
+            max_profit = new_profit
+
+        new_cost = -new_profit
+
+        queue.append(
+            (new_cost, level + 1, new_profit, new_weight)
+        )
+
+    # Branch 2: Do not take the item
+    new_cost = -current_profit
+
+    queue.append(
+        (new_cost, level + 1, current_profit, current_weight)
+    )
+
+print("Maximum Profit =", max_profit)
