@@ -1,0 +1,54 @@
+tree = [10, 20, 30, 40, 50]
+
+n = len(tree)
+
+# PREORDER: Root -> Left -> Right
+stack = [0]
+print("Preorder:", end=" ")
+
+while len(stack) > 0:
+    i = stack.pop()
+    if i < n:
+        print(tree[i], end=" ")
+        right = 2 * i + 2
+        if right < n:
+            stack.append(right)
+        left = 2 * i + 1
+        if left < n:
+            stack.append(left)
+print()
+
+# INORDER: Left -> Root -> Right
+stack = []
+i = 0
+print("Inorder:", end=" ")
+
+while len(stack) > 0 or i < n:
+    while i < n:
+        stack.append(i)
+        i = 2 * i + 1
+    i = stack.pop()
+    print(tree[i], end=" ")
+    i = 2 * i + 2
+print()
+
+# POSTORDER: Left -> Right -> Root
+stack1 = [0]
+stack2 = []
+
+while len(stack1) > 0:
+    i = stack1.pop()
+    if i < n:
+        stack2.append(i)
+        left = 2 * i + 1
+        if left < n:
+            stack1.append(left)
+        right = 2 * i + 2
+        if right < n:
+            stack1.append(right)
+
+print("Postorder:", end=" ")
+while len(stack2) > 0:
+    i = stack2.pop()
+    print(tree[i], end=" ")
+print()
