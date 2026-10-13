@@ -1,0 +1,14 @@
+tree = []
+
+n = int(input("Enter number of elements: "))
+
+print("Enter the elements:")
+
+for i in range(n):
+    x = int(input())
+    tree.append(x)
+
+print("\nTree elements are:")
+
+for i in range(n):
+    print(tree[i], end=" ")
